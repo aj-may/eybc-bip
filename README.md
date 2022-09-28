@@ -13,7 +13,9 @@ Set the original as your upstream:
 Hint: to pull changes merged by other contributors to your local fork, run:
 `git pull upstream main`
 
-Install dev packages with yarn or node:
+Before installing packages or running the development server, make sure that your environment variables are set up properly by checking in with a member of the team.
+
+Then, install dev packages with yarn or node:
 
 ```bash
 npm i
