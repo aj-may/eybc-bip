@@ -109,11 +109,11 @@ const ProposalForm = () => {
           <Button colorScheme="blue" isLoading={isLoading} type="submit">
             Save
           </Button>
-          <Link href="/" passHref>
+          <Link href="#" passHref>
           <Button colorScheme="blue" isLoading={isLoading}>
             Submit for RFC
             </Button>
-            </Link>
+          </Link>
         </Flex>
       </VStack>
     </form>
