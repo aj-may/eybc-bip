@@ -10,6 +10,7 @@ import {
   Spacer,
   Textarea,
   VStack,
+  Select,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -33,72 +34,122 @@ const ProposalForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <VStack align="stretch" spacing={6}>
         <FormControl isRequired isInvalid={!!errors.name}>
-          <FormLabel>Proposal Name</FormLabel>
+          <FormLabel>BIP-#</FormLabel>
           <InputGroup>
             <InputLeftAddon>BIP-#:</InputLeftAddon>
-            <Input
-              {...register("name", { required: true })}
-              autoComplete="off"
-            />
+            <Input {...register("id", { required: true })} autoComplete="off" />
           </InputGroup>
         </FormControl>
 
-        <FormControl>
-          <FormLabel>Co-Authors</FormLabel>
-          <Input {...register("coAuthors")} autoComplete="off" />
+        <FormControl isRequired>
+          <FormLabel>Title of BIP:</FormLabel>
+          <Input {...register("name", { required: true })} autoComplete="off" />
         </FormControl>
 
         <FormControl isRequired>
-          <FormLabel>Summary</FormLabel>
-          <Textarea {...register("summary", { required: true })} />
-          <FormHelperText>
-            One to two sentances that describe the proposal at a high level.
-          </FormHelperText>
+          <FormLabel>Co-Authors:</FormLabel>
+          <FormHelperText>Enter full names of all co-authors.</FormHelperText>
+          <Input
+            {...register("coAuthors", { required: true })}
+            autoComplete="off"
+          />
+        </FormControl>
+
+        <FormControl isRequired>
+          <FormLabel>Date Proposed:</FormLabel>
+          <Input
+            {...register("dateProposal", { required: true })}
+            placeholder="Select Proposal Submission Date"
+            type="date"
+            autoComplete="off"
+          />
         </FormControl>
 
         <FormControl>
-          <FormLabel>Motivation</FormLabel>
-          <Textarea minH="10rem" {...register("motivation")} />
+          <FormLabel>Date Ratified:</FormLabel>
+          <Input
+            {...register("dateRatified")}
+            placeholder="Select Proposal Ratification Date"
+            type="date"
+            autoComplete="off"
+          />
+        </FormControl>
+
+        <FormControl>
+          <FormLabel>Championship Team:</FormLabel>
+          <FormHelperText>
+            Enter full names of volunteers supporting.
+          </FormHelperText>
+          <Input {...register("championshipTeam")} autoComplete="off" />
+        </FormControl>
+
+        <FormControl isRequired>
+          <FormLabel>Leadership Sponsor:</FormLabel>
+          <Select
+            placeholder="Select Leadership Sponsor"
+            {...register("leadershipSponsor", { required: true })}
+          >
+            <option value="option1">Chen Zur</option>
+            <option value="option2">James Canterbury</option>
+            <option value="option3">Rajat Kapur</option>
+            <option value="option4">Arwin Holmes</option>
+            <option value="option5">AJ May</option>
+            <option value="option6">Graham Cathcart</option>
+            <option value="option7">Brian Stern</option>
+            <option value="option8">Tom Garlick</option>
+            <option value="option9">Dale Bocra</option>
+            <option value="option10">Kartheek Solipuram</option>
+          </Select>
+        </FormControl>
+
+        <FormControl isRequired>
+          <FormLabel>Simple Summary/Abstract:</FormLabel>
+          <FormHelperText>
+            Provide one to two sentences that describe the proposal at a high
+            level.
+          </FormHelperText>
+          <Textarea minH="10rem" {...register("summary", { required: true })} />
+        </FormControl>
+
+        <FormControl isRequired>
+          <FormLabel>Motivation(s):</FormLabel>
           <FormHelperText>
             Clearly describe the problem statement and the value it adds. Show
             why this proposal is valuable to our practice.
           </FormHelperText>
+          <Textarea {...register("motivation", { required: true })} />
         </FormControl>
 
-        <FormControl>
+        <FormControl isRequired>
           <FormLabel>Specifications</FormLabel>
-          <Textarea minH="10rem" {...register("specifications")} />
           <FormHelperText>
-            Detailed description of the proposal. Feel free to add rationale
-            explaining why certain design choices were made in the
+            Enter detailed description of the proposal. Feel free to add
+            rationale explaining why certain design choices were made in the
             specification.
           </FormHelperText>
+          <Textarea {...register("specifications", { required: true })} />
         </FormControl>
 
-        <FormControl>
-          <FormLabel>Timeline</FormLabel>
-          <Textarea {...register("timeline")} />
-          <FormHelperText>
-            Proposed Timeline and/or Defined Stages to accomplish the proposal
-            (Keep high level! We aren&apos;t expecting a full project plan here)
-          </FormHelperText>
-        </FormControl>
-
-        <FormControl>
+        <FormControl isRequired>
           <FormLabel>Risks/Impediments</FormLabel>
-          <Textarea {...register("risks")} />
           <FormHelperText>
-            Document any potential risks that will slow or block this effort
+            Document any potential risks that will slow or block this effort.
           </FormHelperText>
+          <Textarea {...register("risks", { required: true })} />
+        </FormControl>
+
+        <FormControl isRequired>
+          <FormLabel>Success Metrics</FormLabel>
+          <FormHelperText>
+            Enter metrics that will be used to measure the success of the
+            proposal once accepted and actioned upon.
+          </FormHelperText>
+          <Textarea {...register("successMetrics", { required: true })} />
         </FormControl>
 
         <FormControl>
-          <FormLabel>Success Metrics</FormLabel>
-          <Textarea {...register("successMetrics")} />
-          <FormHelperText>
-            Metrics to measure success of the proposal once accepted and
-            actioned upon
-          </FormHelperText>
+          <FormLabel>Status</FormLabel>
+          <Input {...register("status")} />
         </FormControl>
 
         <Flex gap={3}>
