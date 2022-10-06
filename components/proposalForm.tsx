@@ -41,35 +41,22 @@ const ProposalForm = () => {
           </InputGroup>
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl>
           <FormLabel>Title of BIP:</FormLabel>
-          <Input {...register("name", { required: true })} autoComplete="off" />
-        </FormControl>
-
-        <FormControl isRequired>
-          <FormLabel>Co-Authors:</FormLabel>
-          <FormHelperText>Enter full names of all co-authors.</FormHelperText>
-          <Input
-            {...register("coAuthors", { required: true })}
-            autoComplete="off"
-          />
-        </FormControl>
-
-        <FormControl isRequired>
-          <FormLabel>Date Proposed:</FormLabel>
-          <Input
-            {...register("dateProposal", { required: true })}
-            placeholder="Select Proposal Submission Date"
-            type="date"
-            autoComplete="off"
-          />
+          <Input {...register("name")} autoComplete="off" />
         </FormControl>
 
         <FormControl>
-          <FormLabel>Date Ratified:</FormLabel>
+          <FormLabel>Co-Authors:</FormLabel>
+          <FormHelperText>Enter full names of all co-authors.</FormHelperText>
+          <Input {...register("coAuthors")} autoComplete="off" />
+        </FormControl>
+
+        <FormControl>
+          <FormLabel>Date Proposed:</FormLabel>
           <Input
-            {...register("dateRatified")}
-            placeholder="Select Proposal Ratification Date"
+            {...register("dateProposal")}
+            placeholder="Select Proposal Submission Date"
             type="date"
             autoComplete="off"
           />
@@ -83,11 +70,11 @@ const ProposalForm = () => {
           <Input {...register("championshipTeam")} autoComplete="off" />
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl>
           <FormLabel>Leadership Sponsor:</FormLabel>
           <Select
             placeholder="Select Leadership Sponsor"
-            {...register("leadershipSponsor", { required: true })}
+            {...register("leadershipSponsor")}
           >
             <option value="option1">Chen Zur</option>
             <option value="option2">James Canterbury</option>
@@ -108,43 +95,43 @@ const ProposalForm = () => {
             Provide one to two sentences that describe the proposal at a high
             level.
           </FormHelperText>
-          <Textarea minH="10rem" {...register("summary", { required: true })} />
+          <Textarea minH="10rem" {...register("summary")} />
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl>
           <FormLabel>Motivation(s):</FormLabel>
           <FormHelperText>
             Clearly describe the problem statement and the value it adds. Show
             why this proposal is valuable to our practice.
           </FormHelperText>
-          <Textarea {...register("motivation", { required: true })} />
+          <Textarea {...register("motivation")} />
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl>
           <FormLabel>Specifications</FormLabel>
           <FormHelperText>
             Enter detailed description of the proposal. Feel free to add
             rationale explaining why certain design choices were made in the
             specification.
           </FormHelperText>
-          <Textarea {...register("specifications", { required: true })} />
+          <Textarea {...register("specifications")} />
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl>
           <FormLabel>Risks/Impediments</FormLabel>
           <FormHelperText>
             Document any potential risks that will slow or block this effort.
           </FormHelperText>
-          <Textarea {...register("risks", { required: true })} />
+          <Textarea {...register("risks")} />
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl>
           <FormLabel>Success Metrics</FormLabel>
           <FormHelperText>
             Enter metrics that will be used to measure the success of the
             proposal once accepted and actioned upon.
           </FormHelperText>
-          <Textarea {...register("successMetrics", { required: true })} />
+          <Textarea {...register("successMetrics")} />
         </FormControl>
 
         <FormControl>

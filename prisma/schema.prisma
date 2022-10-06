@@ -16,15 +16,17 @@ enum ProposalStatus {
 }
 
 model Proposal {
-  id              String @id @default(auto()) @map("_id") @db.ObjectId
-  name            String
-  author          String
-  coAuthors       String
-  summary         String
-  motivation      String
-  specifications  String
-  timeline        String
-  risks           String
-  successMetrics  String
-  status          ProposalStatus @default(IDEA)
+  id                  String @id @default(auto()) @map("_id") @db.ObjectId
+  name                String
+  author              String
+  coAuthors           String
+  dateProposal        String
+  championshipTeam    String
+  leadershipSponsor   String
+  summary             String
+  motivation          String
+  specifications      String
+  risks               String
+  successMetrics      String
+  status              ProposalStatus @default(IDEA)
 }
