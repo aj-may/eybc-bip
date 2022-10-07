@@ -112,7 +112,7 @@ const ProposalForm = () => {
           <Link href="#" passHref>
           <Button colorScheme="blue" isLoading={isLoading}>
             Submit for RFC
-            </Button>
+          </Button>
           </Link>
         </Flex>
       </VStack>
