@@ -110,7 +110,7 @@ const ProposalForm = () => {
             Save
           </Button>
           <Link href="#" passHref>
-          <Button colorScheme="blue" isLoading={isLoading}>
+          <Button colorScheme="blue">
             Submit for RFC
           </Button>
           </Link>
