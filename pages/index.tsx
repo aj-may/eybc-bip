@@ -1,6 +1,8 @@
 import type { NextPage } from "next";
 import useTokenGated from "lib/useTokenGated";
 import Layout from "components/Layout";
+import Navigate from "components/Navigation";
+
 import {
   Box,
   Button,
@@ -35,6 +37,7 @@ const Page: NextPage = () => {
     <Layout>
       <VStack align="stretch" spacing={5}>
         <Flex>
+          <Navigate />
           <ButtonGroup isAttached>
             <Button isActive>All</Button>
             <Button>Draft</Button>
