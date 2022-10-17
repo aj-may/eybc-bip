@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
 import useTokenGated from "lib/useTokenGated";
 import Layout from "components/Layout";
-import Navigate from "components/Navigation";
+import NavBar from 'components/Navbar'
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,6 +19,8 @@ const Page: NextPage = () => {
 
   return (
     <Layout>
+      <NavBar />
+
       <VStack spacing="6" align="stretch">
         <Breadcrumb>
           <BreadcrumbItem>
