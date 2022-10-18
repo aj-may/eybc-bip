@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useCreateProposal } from "lib/useProposals";
 import { Proposal } from "@prisma/client";
-import { PracticeLeaders } from "fixtures/practiceLeaders";
+import { PracticeLeaders } from "fixtures/practiceleaders";
 
 const ProposalForm = () => {
   const router = useRouter();
@@ -135,9 +135,7 @@ const ProposalForm = () => {
             Save
           </Button>
           <Link href="#" passHref>
-          <Button colorScheme="blue">
-            Submit for RFC
-          </Button>
+            <Button colorScheme="blue">Submit for RFC</Button>
           </Link>
         </Flex>
       </VStack>
