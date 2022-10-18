@@ -17,7 +17,6 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useCreateProposal } from "lib/useProposals";
 import { Proposal } from "@prisma/client";
-import { PracticeLeaders } from "fixtures/practiceleaders";
 
 const ProposalForm = () => {
   const router = useRouter();
@@ -73,7 +72,10 @@ const ProposalForm = () => {
 
         <FormControl>
           <FormLabel>Leadership Sponsor:</FormLabel>
-          <PracticeLeaders />
+          <FormHelperText>
+            Enter full name of Leadership Sponsor.
+          </FormHelperText>
+          <Input {...register("leadershipSponsor")} autoComplete="off" />
         </FormControl>
 
         <FormControl isRequired>
