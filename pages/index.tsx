@@ -38,6 +38,7 @@ const Page: NextPage = () => {
     <Layout>
       <VStack align="stretch" spacing={5}>
         <Flex>
+          {/* Sending the page prop to the Navbuttons.tsx to get the active button  */}
           <Navbuttons page="All"/>
 
           <Spacer />

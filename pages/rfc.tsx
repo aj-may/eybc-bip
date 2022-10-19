@@ -6,6 +6,7 @@ const RFC: NextPage = () => {
   
   return (
     <Layout>
+        {/* Sending the page prop to the Navbuttons.tsx to get the active button  */}
         <Navbuttons page="RFC"/>
         RFC
     </Layout>
