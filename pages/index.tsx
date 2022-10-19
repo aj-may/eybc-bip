@@ -1,6 +1,8 @@
 import type { NextPage } from "next";
 import useTokenGated from "lib/useTokenGated";
 import Layout from "components/Layout";
+import Navbuttons from 'components/Navbuttons'
+
 
 import {
   Box,
@@ -18,7 +20,6 @@ import { FiPlus } from "react-icons/fi";
 import Link from "next/link";
 import { useProposals } from "lib/useProposals";
 import { Proposal } from "@prisma/client";
-import NavBar from 'components/Navbar'
 
 const ProposalRow = (props: Proposal) => (
   <Box p="20px">
@@ -37,8 +38,7 @@ const Page: NextPage = () => {
     <Layout>
       <VStack align="stretch" spacing={5}>
         <Flex>
-          <NavBar />
- 
+          <Navbuttons page="All"/>
 
           <Spacer />
 

@@ -1,20 +1,16 @@
 import type { NextPage } from "next";
-import NavBar from 'components/Navbar'
-
+import Navbuttons from 'components/Navbuttons'
 import Layout from "components/Layout";
 
-
 const Draft: NextPage = () => {
- 
   
-    return (
-      <Layout>
-        <NavBar />
-
+  return (
+    <Layout>
+        <Navbuttons page="Drafts"/>
         Draft
-      </Layout>
-    );
-  };
+    </Layout>
+  );
+};
   
-  export default Draft;
+export default Draft;
   

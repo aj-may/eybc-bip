@@ -1,20 +1,16 @@
 import type { NextPage } from "next";
-import NavBar from 'components/Navbar'
-
+import Navbuttons from 'components/Navbuttons'
 import Layout from "components/Layout";
 
-
 const RFC: NextPage = () => {
- 
   
-    return (
-      <Layout>
-        <NavBar />
-
+  return (
+    <Layout>
+        <Navbuttons page="RFC"/>
         RFC
-      </Layout>
-    );
-  };
+    </Layout>
+  );
+};
   
-  export default RFC;
+export default RFC;
   

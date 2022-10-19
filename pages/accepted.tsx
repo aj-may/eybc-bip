@@ -1,21 +1,16 @@
 import type { NextPage } from "next";
-import NavBar from 'components/Navbar'
-
-
+import Navbuttons from 'components/Navbuttons'
 import Layout from "components/Layout";
 
-
 const Accepted: NextPage = () => {
- 
   
-    return (
-      <Layout>
-        <NavBar />
-
+  return (
+    <Layout>
+        <Navbuttons page="Accepted"/>
         Accepted
-      </Layout>
-    );
-  };
+    </Layout>
+  );
+};
   
-  export default Accepted;
+export default Accepted;
   
