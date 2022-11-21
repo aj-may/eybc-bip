@@ -77,7 +77,9 @@ const ProposalRow = (props: Proposal) => {
                 colorScheme="blue"
               />
 
-              {isShown && <div>Edit the proposal</div>}
+              {isShown && (		
+                <div>Edit the proposal</div>		
+              )}
             </AccordionButton>
           </h2>
           {/* THE DETAILS */}
