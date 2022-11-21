@@ -71,7 +71,7 @@ const ProposalRow = (props: Proposal) => {
               <AccordionIcon />
               <Popover>
                 <PopoverTrigger>
-                  <EditIcon  onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)} /> 
+                  <EditIcon   style={{marginLeft: "1rem"}} onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)} /> 
                 </PopoverTrigger>
                 <PopoverContent>
                 {isShown && (
