@@ -8,6 +8,7 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+  IconButton
   
 } from "@chakra-ui/react";
 
@@ -71,7 +72,7 @@ const ProposalRow = (props: Proposal) => {
               </Box>
               <AccordionIcon />
           
-                  <EditIcon   style={{marginLeft: "1rem"}} onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)} /> 
+              <IconButton  onClick={() => setIsShown(true)}  aria-label='Search database' icon={<EditIcon   style={{marginLeft: "1rem"}}/> } />
                
                 {isShown && (
                   <div>Edit the proposal</div>
@@ -93,3 +94,13 @@ const ProposalRow = (props: Proposal) => {
 };
 
 export default ProposalRow;
+
+
+
+/* For the BIPT - 31
+1. Make the icon clickable - DONE
+2. Create a dynamic proposal page like the draft page 
+3. Use the usestate code to take the draft to the dynamic proposal page
+4. populate the proposal page with the data
+*/
+
