@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 
-import { Box, Heading, Text, Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
+import { Box, Heading, Text} from "@chakra-ui/react";
 
 import {
   Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
-  AccordionIcon
+  AccordionIcon,
+  
 } from "@chakra-ui/react";
-import { EditIcon } from '@chakra-ui/icons'
+
+import { EditIcon } from '@chakra-ui/icons'; //Try to use the previous library instead for ease of use
 
 import { Proposal } from "@prisma/client";
-
 
 const ProposalDetails = (props: {
   detailName: String;
@@ -69,17 +70,12 @@ const ProposalRow = (props: Proposal) => {
                 <Text>{props.summary}</Text>
               </Box>
               <AccordionIcon />
-              <Popover>
-                <PopoverTrigger>
+          
                   <EditIcon   style={{marginLeft: "1rem"}} onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)} /> 
-                </PopoverTrigger>
-                <PopoverContent>
+               
                 {isShown && (
-                  <PopoverBody>Edit the proposal</PopoverBody>
+                  <div>Edit the proposal</div>
                 )}
-                </PopoverContent>
-
-              </Popover>
 
             </AccordionButton >
           </h2>
