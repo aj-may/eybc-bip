@@ -18,7 +18,6 @@ import { EditIcon } from "@chakra-ui/icons";
 
 import { Proposal } from "@prisma/client";
 
-
 const ProposalDetails = (props: {
   detailName: String;
   detailValue: String;
@@ -58,11 +57,11 @@ const ProposalRow = (props: Proposal) => {
     { name: "Success Metrics", value: props?.successMetrics },
   ];
 
-  const goToProposal = (id) => {
-          router.push({
-            pathname: `/draft/${id}`
-          })
-    }
+  const goToProposal = (id: string) => {
+    router.push({
+      pathname: `/updateDraft/${id}`,
+    });
+  };
 
   return (
     <Box p="20px">
@@ -88,14 +87,12 @@ const ProposalRow = (props: Proposal) => {
                 id={props.id}
               />
 
-              {isShown && (		
-                <div>Edit the proposal</div>		
-              )}
+              {isShown && <div>Edit the proposal</div>}
             </AccordionButton>
           </h2>
           {/* THE DETAILS */}
           <AccordionPanel pb={4}>
-            {proposalDetails.map((each,i) => (
+            {proposalDetails.map((each, i) => (
               <ProposalDetails
                 key={each.value}
                 detailName={each.name}
@@ -106,15 +103,7 @@ const ProposalRow = (props: Proposal) => {
         </AccordionItem>
       </Accordion>
     </Box>
-    
   );
 };
 
 export default ProposalRow;
-
-/* For the BIPT - 31
-1. Make the icon clickable - DONE
-2. Create a dynamic proposal page like the draft page 
-3. Use the usestate code to take the draft to the dynamic proposal page
-4. populate the proposal page with the data
-*/
