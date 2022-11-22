@@ -8,4 +8,12 @@ export function useDrafts() {
     return response.data;
   });
   return { drafts, isLoading };
-}
+};
+
+export function useDraftsById(id: string) {
+  const { data: drafts, isLoading } = useQuery(["drafts"], async () => {
+    const response = await axios.get<Proposal[]>(`/api/drafts/${id}`);
+    return response.data;
+  });
+  return drafts;
+};
