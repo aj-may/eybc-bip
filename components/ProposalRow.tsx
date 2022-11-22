@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import router, { useRouter } from "next/router";
+
 import {
   Box,
   Heading,
@@ -15,6 +17,7 @@ import {
 import { EditIcon } from "@chakra-ui/icons";
 
 import { Proposal } from "@prisma/client";
+
 
 const ProposalDetails = (props: {
   detailName: String;
@@ -43,6 +46,7 @@ const ProposalRow = (props: Proposal) => {
 
   const date = new Date(props?.dateProposal?.toString()).toDateString();
   const proposalDetails = [
+    { name: "id", value: props?.id },
     { name: "Co-Authors", value: props?.coAuthors },
     { name: "Date Proposed", value: date },
     { name: "Championship Team", value: props?.championshipTeam },
@@ -53,6 +57,12 @@ const ProposalRow = (props: Proposal) => {
     { name: "Risks/Impediments", value: props?.risks },
     { name: "Success Metrics", value: props?.successMetrics },
   ];
+
+  const goToProposal = (props: Proposal) => {
+          router.push({
+            pathname: `/updateDraft`
+          })
+    }
 
   return (
     <Box p="20px">
@@ -70,11 +80,12 @@ const ProposalRow = (props: Proposal) => {
 
               <IconButton
                 fontSize="20px"
-                onClick={() => setIsShown(true)}
+                onClick={() => goToProposal()}
                 aria-label="Search database"
                 icon={<EditIcon />}
                 style={{ marginLeft: "1rem" }}
                 colorScheme="blue"
+                id={props.id}
               />
 
               {isShown && (		
@@ -84,7 +95,7 @@ const ProposalRow = (props: Proposal) => {
           </h2>
           {/* THE DETAILS */}
           <AccordionPanel pb={4}>
-            {proposalDetails.map((each, i) => (
+            {proposalDetails.map((each,i) => (
               <ProposalDetails
                 key={each.value}
                 detailName={each.name}
@@ -95,6 +106,7 @@ const ProposalRow = (props: Proposal) => {
         </AccordionItem>
       </Accordion>
     </Box>
+    
   );
 };
 

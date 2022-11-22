@@ -26,6 +26,31 @@ export default withAuth(async (req, res, session) => {
       return res.status(405).json({
         error: "Method Not Allowed",
       });
+    
+    case "PATCH":
+      try {
+        const updateDraft = await prisma.proposal.update({
+          where: { id = `${id}` },
+          data: {
+            name,
+            author: session.address as string,
+            coAuthors,
+            dateProposal: dateOfProposal,
+            championshipTeam,
+            leadershipSponsor,
+            summary,
+            motivation,
+            specifications,
+            risks,
+            successMetrics
+          },
+        });
+        return res.json(updateDraft);
+      } catch (err) {
+        return res.status(500).json({
+          error: "Proposal does not exist",
+        });
+      }
   }
 });
 // };
