@@ -58,9 +58,9 @@ const ProposalRow = (props: Proposal) => {
     { name: "Success Metrics", value: props?.successMetrics },
   ];
 
-  const goToProposal = (props: Proposal) => {
+  const goToProposal = (id) => {
           router.push({
-            pathname: `/updateDraft`
+            pathname: `/draft/${id}`
           })
     }
 
@@ -80,7 +80,7 @@ const ProposalRow = (props: Proposal) => {
 
               <IconButton
                 fontSize="20px"
-                onClick={() => goToProposal()}
+                onClick={() => goToProposal(props.id)}
                 aria-label="Search database"
                 icon={<EditIcon />}
                 style={{ marginLeft: "1rem" }}

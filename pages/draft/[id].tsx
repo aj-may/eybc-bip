@@ -14,20 +14,36 @@ import {
 import Link from "next/link";
 import ProposalForm from "components/proposalForm";
 import { Proposal } from "@prisma/client";
+import ProposalRow from "components/ProposalRow";
+import { useRouter } from "next/router";
 
-const Page: NextPage = (props: Proposal) => {
+/*export async function getStaticProps({ params }) {
+  return {
+    props: {
+      draftId:params.id,
+    },
+  };
+}*/
+
+
+const Page: NextPage = (props) => {
   const badgeAddress = process.env.NEXT_PUBLIC_BADGE_ADDRESS || "";
   useTokenGated(badgeAddress, true);
   const { drafts } = useDrafts();
   console.log(drafts);
 
+  const router = useRouter()
+  const id = router.query;
+  console.log(id); 
+
+  const result = drafts.filter(obj => {
+    return obj.id == id
+  })
+
+  console.log(result);
+
   return (
-    <Layout>
-      <Navbuttons />
-
-        <ProposalForm id={props.id}/>
-
-    </Layout>
+         <ProposalForm />
   );
 };
 
