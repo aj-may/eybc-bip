@@ -36,8 +36,11 @@ const Page: NextPage = (props) => {
   const id = router.query;
   console.log(id); 
 
+  console.log(drafts);
+
   const result = drafts.filter(obj => {
-    return obj.id == id
+    if(obj.id===id) {
+    return obj
   })
 
   console.log(result);
