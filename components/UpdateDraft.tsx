@@ -1,30 +1,150 @@
-import { Proposal } from "@prisma/client";
-import ProposalForm from "components/proposalForm";
-
-const UpdateDraft = (props: Proposal) => {
-    const date = new Date(props?.dateProposal?.toString()).toDateString();
-    const proposalDetails = [
-    { name: "id", value: props?.id },
-    { name: "Co-Authors", value: props?.coAuthors },
-    { name: "Date Proposed", value: date },
-    { name: "Championship Team", value: props?.championshipTeam },
-    { name: "Leadership Sponsor", value: props?.leadershipSponsor },
-    { name: "Simple Summary/ Abstract", value: props?.summary },
-    { name: "Motivation(s)", value: props?.motivation },
-    { name: "Specifications", value: props?.specifications },
-    { name: "Risks/Impediments", value: props?.risks },
-    { name: "Success Metrics", value: props?.successMetrics },
-  ];
+import {
+    Button,
+    Flex,
+    FormControl,
+    FormHelperText,
+    FormLabel,
+    Input,
+    InputGroup,
+    InputLeftAddon,
+    Spacer,
+    Textarea,
+    VStack,
+    Select,
+  } from "@chakra-ui/react";
+  import Link from "next/link";
+  import { useForm } from "react-hook-form";
+  import { useRouter } from "next/router";
+  import { useCreateProposal } from "lib/useProposals";
+  import { useLeadershipSponsor } from "lib/useLeadershipSponsor";
+  import { Proposal } from "@prisma/client";
+  
+  const UpdateDraft = (props: any) => {
+    const router = useRouter();
+  
+    const {
+      handleSubmit,
+      register,
+      formState: { errors },
+    } = useForm<Proposal>({ mode: "onSubmit" });
+  
+    const { createProposal, isLoading } = useCreateProposal();
+  
+    const onSubmit = (proposal: Proposal) => {
+      createProposal(proposal, { onSuccess: () => router.push("/") });
+    };
+  
     return (
-        <ProposalForm />
-    )
-}
-
-export default UpdateDraft;
-
-/*
-1. Update API endpoint - create a new file
-2. React hook that does the update
-3. Create component
-4. Add routing to button
-*/
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <VStack align="stretch" spacing={6}>
+          <FormControl isInvalid={!!errors.name}>
+            <FormLabel {...register("id")} ></FormLabel>
+          </FormControl>
+  
+          <FormControl isRequired>
+            <FormLabel>Title of BIP:</FormLabel>
+            <Input {props.lana} />
+          </FormControl>
+  
+          <FormControl>
+            <FormLabel>Co-Authors:</FormLabel>
+            <FormHelperText>Enter full names of all co-authors.</FormHelperText>
+            <Input {props.author} />
+          </FormControl>
+  
+          <FormControl>
+            <FormLabel>Date Proposed:</FormLabel>
+            <Input
+              {...register("dateProposal")}
+              placeholder="Select Proposal Submission Date"
+              type="date"
+              autoComplete="off"
+            />
+          </FormControl>
+  
+          <FormControl>
+            <FormLabel>Championship Team:</FormLabel>
+            <FormHelperText>
+              Enter full names of volunteers supporting.
+            </FormHelperText>
+            <Input {...register("championshipTeam")} autoComplete="off" />
+          </FormControl>
+  
+          <FormControl>
+            <FormLabel>Leadership Sponsor:</FormLabel>
+            <Select
+              placeholder="Select option"
+              {...register("leadershipSponsor")}
+            >
+              {selectOptions}
+            </Select>
+          </FormControl>
+  
+          <FormControl isRequired>
+            <FormLabel>Simple Summary/Abstract:</FormLabel>
+            <FormHelperText>
+              Provide one to two sentences that describe the proposal at a high
+              level.
+            </FormHelperText>
+            <Textarea minH="10rem" {...register("summary")} />
+          </FormControl>
+  
+          <FormControl>
+            <FormLabel>Motivation(s):</FormLabel>
+            <FormHelperText>
+              Clearly describe the problem statement and the value it adds. Show
+              why this proposal is valuable to our practice.
+            </FormHelperText>
+            <Textarea {...register("motivation")} />
+          </FormControl>
+  
+          <FormControl>
+            <FormLabel>Specifications</FormLabel>
+            <FormHelperText>
+              Enter detailed description of the proposal. Feel free to add
+              rationale explaining why certain design choices were made in the
+              specification.
+            </FormHelperText>
+            <Textarea {...register("specifications")} />
+          </FormControl>
+  
+          <FormControl>
+            <FormLabel>Risks/Impediments</FormLabel>
+            <FormHelperText>
+              Document any potential risks that will slow or block this effort.
+            </FormHelperText>
+            <Textarea {...register("risks")} />
+          </FormControl>
+  
+          <FormControl>
+            <FormLabel>Success Metrics</FormLabel>
+            <FormHelperText>
+              Enter metrics that will be used to measure the success of the
+              proposal once accepted and actioned upon.
+            </FormHelperText>
+            <Textarea {...register("successMetrics")} />
+          </FormControl>
+  
+          <FormControl>
+            <FormLabel>Status</FormLabel>
+            <Input {...register("status")} />
+          </FormControl>
+  
+          <Flex gap={3}>
+            <Spacer />
+            <Link href="/" passHref>
+              <Button>Cancel</Button>
+            </Link>
+            <Button colorScheme="blue" isLoading={isLoading} type="submit">
+              Save
+            </Button>
+            <Link href="#" passHref>
+              <Button colorScheme="blue">Submit for RFC</Button>
+            </Link>
+          </Flex>
+        </VStack>
+      </form>
+    );
+  };
+  
+  export default UpdateDraft;

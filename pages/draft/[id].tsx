@@ -12,7 +12,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import ProposalForm from "components/proposalForm";
+import UpdateDraft from "components/UpdateDraft";
 import { Proposal } from "@prisma/client";
 import ProposalRow from "components/ProposalRow";
 import { useRouter } from "next/router";
@@ -34,7 +34,8 @@ const Page: NextPage = (props) => {
 
   return (
         <Layout>
-         <ProposalForm />
+         <UpdateDraft title={draft.name}
+         author={draft.coAuthors}/>
          </Layout>
   );
 };
