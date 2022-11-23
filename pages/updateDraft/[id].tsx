@@ -30,10 +30,25 @@ const Page: NextPage = (props) => {
 
   const draft = useDraftsById(id as string);
   // console.log(draft); //Draft details by ID
+  // const coAuthor = draft?.coAuthors; //Checking for specific coAuthor
+  // console.log(coAuthor);
 
   return (
     <Layout>
-      <UpdateDraft />
+      <UpdateDraft
+        id={draft?.id}
+        name={draft?.name}
+        coAuthors={draft?.coAuthors}
+        dateProposal={draft?.dateProposal}
+        championshipTeam={draft?.championshipTeam}
+        leadershipSponsor={draft?.leadershipSponsor}
+        summary={draft?.summary}
+        motivation={draft?.motivation}
+        specifications={draft?.specifications}
+        risks={draft?.risks}
+        successMetrics={draft?.successMetrics}
+        status={draft?.status}
+      />
     </Layout>
   );
 };

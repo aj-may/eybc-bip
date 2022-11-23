@@ -15,9 +15,11 @@ import {
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { useCreateProposal } from "lib/useProposals";
 import { useLeadershipSponsor } from "lib/useLeadershipSponsor";
 import { Proposal } from "@prisma/client";
+import { useUpdateDraft } from "lib/useDrafts";
+import { useEffect, useState } from "react";
+import draft from "pages/draft";
 
 const UpdateDraft = (props: any) => {
   const router = useRouter();
@@ -28,34 +30,55 @@ const UpdateDraft = (props: any) => {
     formState: { errors },
   } = useForm<Proposal>({ mode: "onSubmit" });
 
-  const { createProposal, isLoading } = useCreateProposal();
+  const { updateDraft, isLoading } = useUpdateDraft();
 
   const onSubmit = (proposal: Proposal) => {
-    createProposal(proposal, { onSuccess: () => router.push("/") });
+    updateDraft(proposal, { onSuccess: () => router.push("/") });
   };
+
+  const { leadershipSponsors } = useLeadershipSponsor();
+
+  let selectOptions: JSX.Element[] = [];
+  if (leadershipSponsors) {
+    selectOptions = leadershipSponsors?.map((val) => (
+      <option value={val.name} key={val.id}>
+        {val.name}
+      </option>
+    ));
+  }
+
+  // const [author, setAuthor] = useState();
+
+  // const getAuthor = () => {
+  //   setAuthor(draft.author);
+  // };
+
+  // useEffect(() => {
+  //   getAuthor();
+  // });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <VStack align="stretch" spacing={6}>
         <FormControl isInvalid={!!errors.name}>
-          <FormLabel {...register("id")}></FormLabel>
+          <FormLabel {...props.id} />
         </FormControl>
 
         <FormControl isRequired>
           <FormLabel>Title of BIP:</FormLabel>
-          <Input />
+          <Input value={props.name} />
         </FormControl>
 
         <FormControl>
           <FormLabel>Co-Authors:</FormLabel>
           <FormHelperText>Enter full names of all co-authors.</FormHelperText>
-          <Input />
+          <Input value={props.coAuthors} />
         </FormControl>
 
         <FormControl>
           <FormLabel>Date Proposed:</FormLabel>
           <Input
-            {...register("dateProposal")}
+            value={props.dateProposal}
             placeholder="Select Proposal Submission Date"
             type="date"
             autoComplete="off"
@@ -67,15 +90,14 @@ const UpdateDraft = (props: any) => {
           <FormHelperText>
             Enter full names of volunteers supporting.
           </FormHelperText>
-          <Input {...register("championshipTeam")} autoComplete="off" />
+          <Input value={props.championshipTeam} autoComplete="off" />
         </FormControl>
 
         <FormControl>
           <FormLabel>Leadership Sponsor:</FormLabel>
-          <Select
-            placeholder="Select option"
-            {...register("leadershipSponsor")}
-          ></Select>
+          <Select placeholder="Select option" value={props.leadershipSponsor}>
+            {selectOptions}
+          </Select>
         </FormControl>
 
         <FormControl isRequired>
@@ -84,7 +106,7 @@ const UpdateDraft = (props: any) => {
             Provide one to two sentences that describe the proposal at a high
             level.
           </FormHelperText>
-          <Textarea minH="10rem" {...register("summary")} />
+          <Textarea minH="10rem" value={props.summary} />
         </FormControl>
 
         <FormControl>
@@ -93,7 +115,7 @@ const UpdateDraft = (props: any) => {
             Clearly describe the problem statement and the value it adds. Show
             why this proposal is valuable to our practice.
           </FormHelperText>
-          <Textarea {...register("motivation")} />
+          <Textarea value={props.motivation} />
         </FormControl>
 
         <FormControl>
@@ -103,7 +125,7 @@ const UpdateDraft = (props: any) => {
             rationale explaining why certain design choices were made in the
             specification.
           </FormHelperText>
-          <Textarea {...register("specifications")} />
+          <Textarea value={props.specifications} />
         </FormControl>
 
         <FormControl>
@@ -111,7 +133,7 @@ const UpdateDraft = (props: any) => {
           <FormHelperText>
             Document any potential risks that will slow or block this effort.
           </FormHelperText>
-          <Textarea {...register("risks")} />
+          <Textarea value={props.risks} />
         </FormControl>
 
         <FormControl>
@@ -120,12 +142,12 @@ const UpdateDraft = (props: any) => {
             Enter metrics that will be used to measure the success of the
             proposal once accepted and actioned upon.
           </FormHelperText>
-          <Textarea {...register("successMetrics")} />
+          <Textarea value={props.successMetrics} />
         </FormControl>
 
         <FormControl>
           <FormLabel>Status</FormLabel>
-          <Input {...register("status")} />
+          <Input value={props.status} />
         </FormControl>
 
         <Flex gap={3}>
