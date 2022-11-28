@@ -47,16 +47,6 @@ const UpdateDraft = (props: any) => {
     ));
   }
 
-  // const [author, setAuthor] = useState();
-
-  // const getAuthor = () => {
-  //   setAuthor(draft.author);
-  // };
-
-  // useEffect(() => {
-  //   getAuthor();
-  // });
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <VStack align="stretch" spacing={6}>
@@ -66,19 +56,19 @@ const UpdateDraft = (props: any) => {
 
         <FormControl isRequired>
           <FormLabel>Title of BIP:</FormLabel>
-          <Input value={props.name} />
+          <Input defaultValue={props.name} />
         </FormControl>
 
         <FormControl>
           <FormLabel>Co-Authors:</FormLabel>
           <FormHelperText>Enter full names of all co-authors.</FormHelperText>
-          <Input value={props.coAuthors} />
+          <Input defaultValue={props.coAuthors} />
         </FormControl>
 
         <FormControl>
           <FormLabel>Date Proposed:</FormLabel>
           <Input
-            value={props.dateProposal}
+            defaultValue={props.dateProposal}
             placeholder="Select Proposal Submission Date"
             type="date"
             autoComplete="off"
@@ -90,12 +80,15 @@ const UpdateDraft = (props: any) => {
           <FormHelperText>
             Enter full names of volunteers supporting.
           </FormHelperText>
-          <Input value={props.championshipTeam} autoComplete="off" />
+          <Input defaultValue={props.championshipTeam} autoComplete="off" />
         </FormControl>
 
         <FormControl>
           <FormLabel>Leadership Sponsor:</FormLabel>
-          <Select placeholder="Select option" value={props.leadershipSponsor}>
+          <Select
+            placeholder="Select option"
+            defaultValue={props.leadershipSponsor}
+          >
             {selectOptions}
           </Select>
         </FormControl>
@@ -106,7 +99,7 @@ const UpdateDraft = (props: any) => {
             Provide one to two sentences that describe the proposal at a high
             level.
           </FormHelperText>
-          <Textarea minH="10rem" value={props.summary} />
+          <Textarea minH="10rem" defaultValue={props.summary} />
         </FormControl>
 
         <FormControl>
@@ -115,7 +108,7 @@ const UpdateDraft = (props: any) => {
             Clearly describe the problem statement and the value it adds. Show
             why this proposal is valuable to our practice.
           </FormHelperText>
-          <Textarea value={props.motivation} />
+          <Textarea defaultValue={props.motivation} />
         </FormControl>
 
         <FormControl>
@@ -125,7 +118,7 @@ const UpdateDraft = (props: any) => {
             rationale explaining why certain design choices were made in the
             specification.
           </FormHelperText>
-          <Textarea value={props.specifications} />
+          <Textarea defaultValue={props.specifications} />
         </FormControl>
 
         <FormControl>
@@ -133,7 +126,7 @@ const UpdateDraft = (props: any) => {
           <FormHelperText>
             Document any potential risks that will slow or block this effort.
           </FormHelperText>
-          <Textarea value={props.risks} />
+          <Textarea defaultValue={props.risks} />
         </FormControl>
 
         <FormControl>
@@ -142,12 +135,12 @@ const UpdateDraft = (props: any) => {
             Enter metrics that will be used to measure the success of the
             proposal once accepted and actioned upon.
           </FormHelperText>
-          <Textarea value={props.successMetrics} />
+          <Textarea defaultValue={props.successMetrics} />
         </FormControl>
 
         <FormControl>
           <FormLabel>Status</FormLabel>
-          <Input value={props.status} />
+          <Input defaultValue={props.status} />
         </FormControl>
 
         <Flex gap={3}>

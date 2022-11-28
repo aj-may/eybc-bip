@@ -23,15 +23,10 @@ const Page: NextPage = (props) => {
 
   const router = useRouter();
   const idObject = router.query;
-  // console.log(idObject);
 
   const id = idObject.id;
-  // console.log(id);
 
   const draft = useDraftsById(id as string);
-  // console.log(draft); //Draft details by ID
-  // const coAuthor = draft?.coAuthors; //Checking for specific coAuthor
-  // console.log(coAuthor);
 
   return (
     <Layout>
