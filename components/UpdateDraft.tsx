@@ -20,6 +20,7 @@ import { Proposal } from "@prisma/client";
 import { useUpdateDraft } from "lib/useDrafts";
 import { useEffect, useState } from "react";
 import draft from "pages/draft";
+import ProposalButton from "./NewProposalButton";
 
 const UpdateDraft = (props: any) => {
   const router = useRouter();
@@ -30,11 +31,11 @@ const UpdateDraft = (props: any) => {
     formState: { errors },
   } = useForm<Proposal>({ mode: "onSubmit" });
 
-  const { updateDraft, isLoading } = useUpdateDraft();
+  /*const { updateDraft, isLoading } = useUpdateDraft<Proposal>();
 
-  const onSubmit = (proposal: Proposal) => {
-    updateDraft(proposal, { onSuccess: () => router.push("/") });
-  };
+  const onSubmit = (id: Proposal) => {
+    updateDraft(id);
+  };*/
 
   const { leadershipSponsors } = useLeadershipSponsor();
 
@@ -135,8 +136,10 @@ const UpdateDraft = (props: any) => {
     getStatus();
   });
 
+  const {updateDraft} = useUpdateDraft(props.id);
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={() => {updateDraft(props)}}>
       <VStack align="stretch" spacing={6}>
         <FormControl isInvalid={!!errors.name}>
           <FormLabel {...props.id} />
@@ -289,7 +292,7 @@ const UpdateDraft = (props: any) => {
           <Link href="/" passHref>
             <Button>Cancel</Button>
           </Link>
-          <Button colorScheme="blue" isLoading={isLoading} type="submit">
+          <Button colorScheme="blue"  type="submit">
             Save
           </Button>
           <Link href="#" passHref>
