@@ -18,12 +18,11 @@ export function useDraftsById(id: string) {
   return drafts;
 }
 
-export function useUpdateDraft(id:string) {
+export function useUpdateDraft(id: string) {
   const queryClient = useQueryClient();
   const { mutate: updateDraft, isLoading } = useMutation(
     async (proposal: Proposal) => {
       const result = await axios.patch(`/api/drafts/${id}`, proposal);
-      console.log(proposal);
       return result.data;
     },
     {

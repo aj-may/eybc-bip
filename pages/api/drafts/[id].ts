@@ -4,9 +4,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const prisma = new PrismaClient();
 
-//export default withAuth(async (req, res, session) => {
-const draftsById = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { method, query } = req;
+export default withAuth(async (req, res, session) => {
+  const { method, query, body } = req;
 
   switch (method) {
     case "GET":
@@ -22,39 +21,50 @@ const draftsById = async (req: NextApiRequest, res: NextApiResponse) => {
         });
       }
 
-      case "PATCH":
-        const { name, coAuthors, date, championshipTeam, leadershipSponsor, summary, motivation, specifications, risks, successMetrics } = query;
-        console.log(query);
-        try {
-          const draftById = await prisma.proposal.update({
-            where: { id: `${id}` },
-            data: {
-              name: `${name}`,
-              coAuthors: `${coAuthors}`,
-              //date: `${date}`,
-              championshipTeam: `${championshipTeam}`,
-              leadershipSponsor: `${leadershipSponsor}`,
-              summary: `${summary}`,
-              motivation: `${motivation}`,
-              specifications: `${specifications}`,
-              risks: `${risks}`,
-              successMetrics: `${successMetrics}`
-            },
-          });
-          console.log(draftsById);
-          return res.json(draftById);
-        } catch (err) {
-          return res.status(500).json({
-            error: "Proposal does not exist",
-          });
-        }
-  
-      default:
-        return res.status(405).json({
-          error: "Method Not Allowed",
+    case "PATCH":
+      const draftId = query.id;
+      const {
+        name,
+        coAuthors,
+        dateProposal,
+        championshipTeam,
+        leadershipSponsor,
+        summary,
+        motivation,
+        specifications,
+        risks,
+        successMetrics,
+      } = body;
+      const dateOfProposal = dateProposal ? new Date(dateProposal) : new Date();
+
+      try {
+        const draftById = await prisma.proposal.update({
+          where: { id: `${draftId}` },
+          data: {
+            name,
+            coAuthors,
+            author: session.address as string,
+            dateProposal: dateOfProposal,
+            championshipTeam,
+            leadershipSponsor,
+            summary,
+            motivation,
+            specifications,
+            risks,
+            successMetrics,
+          },
+        });
+        return res.json(draftById);
+      } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+          error: "Proposal does not exist",
         });
       }
-      
-    // });
-};
-export default draftsById;
+
+    default:
+      return res.status(405).json({
+        error: "Method Not Allowed",
+      });
+  }
+});

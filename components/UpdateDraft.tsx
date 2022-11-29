@@ -19,25 +19,39 @@ import { useLeadershipSponsor } from "lib/useLeadershipSponsor";
 import { Proposal } from "@prisma/client";
 import { useUpdateDraft } from "lib/useDrafts";
 import { useEffect, useState } from "react";
-import draft from "pages/draft";
-import ProposalButton from "./NewProposalButton";
 
-const UpdateDraft = (props: any) => {
+const UpdateDraft = (props: Proposal) => {
   const router = useRouter();
 
   const {
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useForm<Proposal>({ mode: "onSubmit" });
-
-  /*const { updateDraft, isLoading } = useUpdateDraft<Proposal>();
-
-  const onSubmit = (id: Proposal) => {
-    updateDraft(id);
-  };*/
-
+  const { updateDraft } = useUpdateDraft(props.id);
   const { leadershipSponsors } = useLeadershipSponsor();
+
+  useEffect(() => {
+    // you can also do async server request and fill up form
+    // Filling up the existing values of the draft proposal
+    if (props) {
+      reset({
+        id: props.id,
+        name: props.name,
+        coAuthors: props.coAuthors,
+        dateProposal: props.dateProposal,
+        championshipTeam: props.championshipTeam,
+        leadershipSponsor: props.leadershipSponsor,
+        summary: props.summary,
+        motivation: props.motivation,
+        specifications: props.specifications,
+        risks: props.risks,
+        successMetrics: props.successMetrics,
+        status: props.status,
+      });
+    }
+  }, [reset, props.name]);
 
   let selectOptions: JSX.Element[] = [];
   if (leadershipSponsors) {
@@ -48,134 +62,36 @@ const UpdateDraft = (props: any) => {
     ));
   }
 
-  const [name, setName] = useState<string>();
-  const getName = () => {
-    setName(props.name);
+  const submitButtonClicked = (proposal: Proposal) => {
+    updateDraft(proposal, { onSuccess: () => router.push("/draft") });
   };
-  useEffect(() => {
-    getName();
-  });
-
-  const [coAuthors, setCoAuthors] = useState<string>();
-  const getCoAuthors = () => {
-    setCoAuthors(props.coAuthors);
-  };
-  useEffect(() => {
-    getCoAuthors();
-  });
-
-  const [dateProposal, setDateProposal] = useState<any>();
-  const getDateProposal = () => {
-    setDateProposal(props.dateProposal);
-  };
-  useEffect(() => {
-    getDateProposal();
-  });
-
-  const [championshipTeam, setChampionshipTeam] = useState<string>();
-  const getChampionshipTeam = () => {
-    setChampionshipTeam(props.championshipTeam);
-  };
-  useEffect(() => {
-    getChampionshipTeam();
-  });
-
-  const [leadershipSponsor, setLeadershipSponsor] = useState<string>();
-  const getLeadershipSponsor = () => {
-    setLeadershipSponsor(props.leadershipSponsor);
-  };
-  useEffect(() => {
-    getLeadershipSponsor();
-  });
-
-  const [summary, setSummary] = useState<string>();
-  const getSummary = () => {
-    setSummary(props.summary);
-  };
-  useEffect(() => {
-    getSummary();
-  });
-
-  const [motivation, setMotivation] = useState<string>();
-  const getMotivation = () => {
-    setMotivation(props.motivation);
-  };
-  useEffect(() => {
-    getMotivation();
-  });
-
-  const [specifications, setSpecifications] = useState<string>();
-  const getSpecifications = () => {
-    setSpecifications(props.specifications);
-  };
-  useEffect(() => {
-    getSpecifications();
-  });
-
-  const [risks, setRisks] = useState<string>();
-  const getRisks = () => {
-    setRisks(props.risks);
-  };
-  useEffect(() => {
-    getRisks();
-  });
-
-  const [successMetrics, setSuccessMetrics] = useState<string>();
-  const getSuccessMetrics = () => {
-    setSuccessMetrics(props.successMetrics);
-  };
-  useEffect(() => {
-    getSuccessMetrics();
-  });
-
-  const [status, setStatus] = useState<string>();
-  const getStatus = () => {
-    setStatus(props.status);
-  };
-  useEffect(() => {
-    getStatus();
-  });
-
-  const {updateDraft} = useUpdateDraft(props.id);
 
   return (
-    <form onSubmit={() => {updateDraft(props)}}>
+    <form onSubmit={handleSubmit(submitButtonClicked)}>
       <VStack align="stretch" spacing={6}>
         <FormControl isInvalid={!!errors.name}>
-          <FormLabel {...props.id} />
+          <FormLabel>{props.id} </FormLabel>
+          <Input {...register("id")} hidden />
         </FormControl>
 
         <FormControl isRequired>
           <FormLabel>Title of BIP:</FormLabel>
-          <Input
-            defaultValue={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
+          <Input {...register("name")} autoComplete="off" />
         </FormControl>
 
         <FormControl>
           <FormLabel>Co-Authors:</FormLabel>
           <FormHelperText>Enter full names of all co-authors.</FormHelperText>
-          <Input
-            defaultValue={coAuthors}
-            onChange={(e) => {
-              setCoAuthors(e.target.value);
-            }}
-          />
+          <Input {...register("coAuthors")} autoComplete="off" />
         </FormControl>
 
         <FormControl>
           <FormLabel>Date Proposed:</FormLabel>
           <Input
-            defaultValue={dateProposal}
+            {...register("dateProposal")}
             placeholder="Select Proposal Submission Date"
             type="date"
             autoComplete="off"
-            onChange={(e) => {
-              setDateProposal(e.target.value);
-            }}
           />
         </FormControl>
 
@@ -184,23 +100,14 @@ const UpdateDraft = (props: any) => {
           <FormHelperText>
             Enter full names of volunteers supporting.
           </FormHelperText>
-          <Input
-            defaultValue={championshipTeam}
-            autoComplete="off"
-            onChange={(e) => {
-              setChampionshipTeam(e.target.value);
-            }}
-          />
+          <Input {...register("championshipTeam")} autoComplete="off" />
         </FormControl>
 
         <FormControl>
           <FormLabel>Leadership Sponsor:</FormLabel>
           <Select
             placeholder="Select option"
-            onChange={(e) => {
-              setLeadershipSponsor(e.target.value);
-            }}
-            defaultValue={leadershipSponsor}
+            {...register("leadershipSponsor")}
           >
             {selectOptions}
           </Select>
@@ -212,13 +119,7 @@ const UpdateDraft = (props: any) => {
             Provide one to two sentences that describe the proposal at a high
             level.
           </FormHelperText>
-          <Textarea
-            minH="10rem"
-            defaultValue={summary}
-            onChange={(e) => {
-              setSummary(e.target.value);
-            }}
-          />
+          <Textarea minH="10rem" {...register("summary")} />
         </FormControl>
 
         <FormControl>
@@ -227,12 +128,7 @@ const UpdateDraft = (props: any) => {
             Clearly describe the problem statement and the value it adds. Show
             why this proposal is valuable to our practice.
           </FormHelperText>
-          <Textarea
-            defaultValue={motivation}
-            onChange={(e) => {
-              setMotivation(e.target.value);
-            }}
-          />
+          <Textarea {...register("motivation")} />
         </FormControl>
 
         <FormControl>
@@ -242,12 +138,7 @@ const UpdateDraft = (props: any) => {
             rationale explaining why certain design choices were made in the
             specification.
           </FormHelperText>
-          <Textarea
-            defaultValue={specifications}
-            onChange={(e) => {
-              setSpecifications(e.target.value);
-            }}
-          />
+          <Textarea {...register("specifications")} />
         </FormControl>
 
         <FormControl>
@@ -255,12 +146,7 @@ const UpdateDraft = (props: any) => {
           <FormHelperText>
             Document any potential risks that will slow or block this effort.
           </FormHelperText>
-          <Textarea
-            defaultValue={risks}
-            onChange={(e) => {
-              setRisks(e.target.value);
-            }}
-          />
+          <Textarea {...register("risks")} />
         </FormControl>
 
         <FormControl>
@@ -269,22 +155,12 @@ const UpdateDraft = (props: any) => {
             Enter metrics that will be used to measure the success of the
             proposal once accepted and actioned upon.
           </FormHelperText>
-          <Textarea
-            defaultValue={successMetrics}
-            onChange={(e) => {
-              setSuccessMetrics(e.target.value);
-            }}
-          />
+          <Textarea {...register("successMetrics")} />
         </FormControl>
 
         <FormControl>
           <FormLabel>Status</FormLabel>
-          <Input
-            defaultValue={status}
-            onChange={(e) => {
-              setStatus(e.target.value);
-            }}
-          />
+          <Input {...register("status")} />
         </FormControl>
 
         <Flex gap={3}>
@@ -292,7 +168,7 @@ const UpdateDraft = (props: any) => {
           <Link href="/" passHref>
             <Button>Cancel</Button>
           </Link>
-          <Button colorScheme="blue"  type="submit">
+          <Button colorScheme="blue" type="submit">
             Save
           </Button>
           <Link href="#" passHref>
