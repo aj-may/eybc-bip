@@ -70,7 +70,7 @@ const UpdateDraft = (props: Proposal) => {
     <form onSubmit={handleSubmit(submitButtonClicked)}>
       <VStack align="stretch" spacing={6}>
         <FormControl isInvalid={!!errors.name}>
-          <FormLabel>{props.id} </FormLabel>
+          <FormLabel hidden>{props.id} </FormLabel>
           <Input {...register("id")} hidden />
         </FormControl>
 
@@ -158,7 +158,7 @@ const UpdateDraft = (props: Proposal) => {
           <Textarea {...register("successMetrics")} />
         </FormControl>
 
-        <FormControl>
+        <FormControl hidden>
           <FormLabel>Status</FormLabel>
           <Input {...register("status")} />
         </FormControl>

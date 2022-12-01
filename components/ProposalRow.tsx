@@ -45,7 +45,6 @@ const ProposalRow = (props: Proposal) => {
 
   const date = new Date(props?.dateProposal?.toString()).toDateString();
   const proposalDetails = [
-    { name: "id", value: props?.id },
     { name: "Co-Authors", value: props?.coAuthors },
     { name: "Date Proposed", value: date },
     { name: "Championship Team", value: props?.championshipTeam },
