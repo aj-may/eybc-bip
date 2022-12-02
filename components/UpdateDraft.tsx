@@ -19,6 +19,7 @@ import { useLeadershipSponsor } from "lib/useLeadershipSponsor";
 import { Proposal } from "@prisma/client";
 import { useUpdateDraft } from "lib/useDrafts";
 import { useEffect, useState } from "react";
+import moment from "moment";
 
 const UpdateDraft = (props: Proposal) => {
   const router = useRouter();
@@ -33,14 +34,16 @@ const UpdateDraft = (props: Proposal) => {
   const { leadershipSponsors } = useLeadershipSponsor();
 
   useEffect(() => {
-    // you can also do async server request and fill up form
-    // Filling up the existing values of the draft proposal
+    let convertedDate = new Date(props.dateProposal);
+    let dateObj = moment(convertedDate, "MM-DD-YYYY");
+    let stringValue = dateObj.format("YYYY-MM-DD");
+
     if (props) {
       reset({
         id: props.id,
         name: props.name,
         coAuthors: props.coAuthors,
-        dateProposal: props.dateProposal,
+        dateProposal: stringValue,
         championshipTeam: props.championshipTeam,
         leadershipSponsor: props.leadershipSponsor,
         summary: props.summary,
