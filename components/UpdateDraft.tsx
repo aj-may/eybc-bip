@@ -13,12 +13,14 @@ import {
   Select,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useLeadershipSponsor } from "lib/useLeadershipSponsor";
 import { Proposal } from "@prisma/client";
 import { useUpdateDraft } from "lib/useDrafts";
 import { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+
 import moment from "moment";
 
 const UpdateDraft = (props: Proposal) => {
@@ -29,21 +31,23 @@ const UpdateDraft = (props: Proposal) => {
     register,
     formState: { errors },
     reset,
+    control,
   } = useForm<Proposal>({ mode: "onSubmit" });
   const { updateDraft } = useUpdateDraft(props.id);
+  const [date, setDate] = useState<Date>();
   const { leadershipSponsors } = useLeadershipSponsor();
 
   useEffect(() => {
-    let convertedDate = new Date(props.dateProposal);
-    let dateObj = moment(convertedDate, "MM-DD-YYYY");
-    let stringValue = dateObj.format("YYYY-MM-DD");
+    // let convertedDate = new Date(props.dateProposal);
+    // let dateObj = moment(convertedDate, "MM-DD-YYYY");
+    // let stringValue = dateObj.format("YYYY-MM-DD");
 
     if (props) {
       reset({
         id: props.id,
         name: props.name,
         coAuthors: props.coAuthors,
-        dateProposal: stringValue,
+        dateProposal: props.dateProposal,
         championshipTeam: props.championshipTeam,
         leadershipSponsor: props.leadershipSponsor,
         summary: props.summary,
@@ -68,6 +72,9 @@ const UpdateDraft = (props: Proposal) => {
   const submitButtonClicked = (proposal: Proposal) => {
     updateDraft(proposal, { onSuccess: () => router.push("/draft") });
   };
+  let convertedDate = props.dateProposal
+    ? new Date(props.dateProposal)
+    : undefined;
 
   return (
     <form onSubmit={handleSubmit(submitButtonClicked)}>
@@ -90,12 +97,27 @@ const UpdateDraft = (props: Proposal) => {
 
         <FormControl>
           <FormLabel>Date Proposed:</FormLabel>
-          <Input
+          <Controller
+            control={control}
+            name="dateProposal"
+            render={({ field: { onChange, onBlur, value, name, ref } }) => (
+              <DatePicker
+                placeholderText="Select date"
+                onChange={onChange}
+                selected={convertedDate}
+                value={value ? new Date(value).toDateString() : ""}
+              />
+            )}
+          />
+          {/* <DatePicker {...register("dateProposal")} >
+
+          </DatePicker> */}
+          {/* <Input
             {...register("dateProposal")}
             placeholder="Select Proposal Submission Date"
             type="date"
             autoComplete="off"
-          />
+          /> */}
         </FormControl>
 
         <FormControl>

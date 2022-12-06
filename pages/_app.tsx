@@ -1,4 +1,6 @@
 import "@rainbow-me/rainbowkit/styles.css";
+import "react-datepicker/dist/react-datepicker.css";
+import "../components/date-picker.css";
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
