@@ -51,11 +51,19 @@ const ProposalForm = () => {
     onOpen: onOpenCancelDialog,
     onClose: onCloseCancelDialog,
   } = useDisclosure();
+  const {
+    isOpen: isOpenDraftDialog,
+    onOpen: onOpenDraftDialog,
+    onClose: onCloseDraftDialog,
+  } = useDisclosure();
 
   const rfcRef = React.useRef<HTMLElement>(
     null
   ) as React.MutableRefObject<HTMLElement>;
   const CancellRef = React.useRef<HTMLElement>(
+    null
+  ) as React.MutableRefObject<HTMLElement>;
+  const DraftRef = React.useRef<HTMLElement>(
     null
   ) as React.MutableRefObject<HTMLElement>;
 
@@ -70,11 +78,14 @@ const ProposalForm = () => {
   const { createProposal, isLoading } = useCreateProposal();
   const [rfcFinalProposal, setRfcFinalProposal] =
     useState<Proposal>(initProposal);
+  const [draftProposal, setdraftProposal] = useState<Proposal>(initProposal);
 
   const onSubmitDraft = (proposal: Proposal) => {
     //changing the status to DRAFT before pushing it.
     proposal.status = "DRAFT";
-    createProposal(proposal, { onSuccess: () => router.push("/") });
+    setdraftProposal(proposal);
+    //open the modal
+    onOpenDraftDialog();
   };
 
   const onSubmitRFC = (proposal: Proposal) => {
@@ -124,6 +135,9 @@ const ProposalForm = () => {
   const handleCancel = () => {
     onOpenCancelDialog();
   };
+  const handleDraft = () => {
+    onOpenCancelDialog();
+  };
 
   let LeadershipOptions: JSX.Element[] = [];
   if (leadershipSponsors) {
@@ -147,6 +161,19 @@ const ProposalForm = () => {
             onSuccess: () => router.push("/rfc"),
           });
           onCloseRFCDialog();
+        }}
+      />
+      <AlertDialogue
+        isOpen={isOpenDraftDialog}
+        onClose={onCloseDraftDialog}
+        dialogRef={DraftRef}
+        header={"Submit Proposal to Draft"}
+        content="Are you sure you want to submit your proposal for Draft?"
+        onAccept={() => {
+          createProposal(draftProposal, {
+            onSuccess: () => router.push("/draft"),
+          });
+          onCloseDraftDialog();
         }}
       />
       <AlertDialogue
@@ -273,6 +300,7 @@ const ProposalForm = () => {
             onClick={handleSubmit(onSubmitDraft)}
             colorScheme="blue"
             isLoading={isLoading}
+            type="submit"
           >
             Save as Draft
           </Button>
