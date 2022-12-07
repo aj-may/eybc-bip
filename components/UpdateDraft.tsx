@@ -109,15 +109,6 @@ const UpdateDraft = (props: Proposal) => {
               />
             )}
           />
-          {/* <DatePicker {...register("dateProposal")} >
-
-          </DatePicker> */}
-          {/* <Input
-            {...register("dateProposal")}
-            placeholder="Select Proposal Submission Date"
-            type="date"
-            autoComplete="off"
-          /> */}
         </FormControl>
 
         <FormControl>
