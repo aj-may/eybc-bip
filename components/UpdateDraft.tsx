@@ -38,9 +38,6 @@ const UpdateDraft = (props: Proposal) => {
   const { leadershipSponsors } = useLeadershipSponsor();
 
   useEffect(() => {
-    // let convertedDate = new Date(props.dateProposal);
-    // let dateObj = moment(convertedDate, "MM-DD-YYYY");
-    // let stringValue = dateObj.format("YYYY-MM-DD");
 
     if (props) {
       reset({
