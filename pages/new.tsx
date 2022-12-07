@@ -1,9 +1,11 @@
 import type { NextPage } from "next";
 import useTokenGated from "lib/useTokenGated";
 import Layout from "components/Layout";
-import Navbuttons from 'components/Navbuttons'
+import Navbuttons from "components/Navbuttons";
 
 import {
+  Alert,
+  AlertIcon,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
@@ -35,7 +37,11 @@ const Page: NextPage = () => {
             </Link>
           </BreadcrumbItem>
         </Breadcrumb>
-
+        <Alert status="info">
+          <AlertIcon />
+          All fields must be filled out in order to submit for RFC (Request For
+          Comments).
+        </Alert>
         <Heading>New Proposal</Heading>
 
         <ProposalForm />

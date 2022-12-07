@@ -29,6 +29,8 @@ export default withAuth(async (req, res, session) => {
         specifications,
         risks,
         successMetrics,
+        status,
+        rfcStatus
       } = body;
 
       if (!name || !summary)
@@ -51,6 +53,8 @@ export default withAuth(async (req, res, session) => {
           specifications,
           risks,
           successMetrics,
+          status,
+          rfcStatus
         },
       });
 

@@ -93,7 +93,7 @@ const ProposalRow = (props: Proposal) => {
           <AccordionPanel pb={4}>
             {proposalDetails.map((each, i) => (
               <ProposalDetails
-                key={each.value}
+                key={i}
                 detailName={each.name}
                 detailValue={each.value}
               />

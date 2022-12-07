@@ -5,22 +5,61 @@ import {
   FormHelperText,
   FormLabel,
   Input,
-  InputGroup,
-  InputLeftAddon,
   Spacer,
   Textarea,
   VStack,
   Select,
+  FormErrorMessage,
+  useToast,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useCreateProposal } from "lib/useProposals";
 import { useLeadershipSponsor } from "lib/useLeadershipSponsor";
-import { Proposal } from "@prisma/client";
+import { Proposal, ProposalStatus, RFCStatus } from "@prisma/client";
+import React, { useEffect, useState } from "react";
+import AlertDialogue from "./AlertDialogue";
 
 const ProposalForm = () => {
+  const initProposal: Proposal = {
+    name: "",
+    coAuthors: "",
+    dateProposal: new Date(),
+    championshipTeam: "",
+    leadershipSponsor: "",
+    summary: "",
+    motivation: "",
+    specifications: "",
+    risks: "",
+    successMetrics: "",
+    id: "",
+    author: "",
+    status: ProposalStatus.DRAFT,
+    rfcStatus: RFCStatus.NONE,
+  };
   const router = useRouter();
+  const toast = useToast();
+  const {
+    isOpen: isOpenRFCDialog,
+    onOpen: onOpenRFCDialog,
+    onClose: onCloseRFCDialog,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenCancelDialog,
+    onOpen: onOpenCancelDialog,
+    onClose: onCloseCancelDialog,
+  } = useDisclosure();
+
+  const rfcRef = React.useRef<HTMLElement>(
+    null
+  ) as React.MutableRefObject<HTMLElement>;
+  const CancellRef = React.useRef<HTMLElement>(
+    null
+  ) as React.MutableRefObject<HTMLElement>;
+
+  const { leadershipSponsors } = useLeadershipSponsor();
 
   const {
     handleSubmit,
@@ -29,16 +68,66 @@ const ProposalForm = () => {
   } = useForm<Proposal>({ mode: "onSubmit" });
 
   const { createProposal, isLoading } = useCreateProposal();
+  const [rfcFinalProposal, setRfcFinalProposal] =
+    useState<Proposal>(initProposal);
 
-  const onSubmit = (proposal: Proposal) => {
+  const onSubmitDraft = (proposal: Proposal) => {
+    //changing the status to DRAFT before pushing it.
+    proposal.status = "DRAFT";
     createProposal(proposal, { onSuccess: () => router.push("/") });
   };
 
-  const { leadershipSponsors } = useLeadershipSponsor();
+  const onSubmitRFC = (proposal: Proposal) => {
+    //changing the status to RFC before pushing it.
+    proposal.status = "RFC";
+    proposal.rfcStatus = "UNPUBLISHED";
 
-  let selectOptions: JSX.Element[] = [];
+    const {
+      name,
+      coAuthors,
+      dateProposal,
+      championshipTeam,
+      leadershipSponsor,
+      summary,
+      motivation,
+      specifications,
+      risks,
+      successMetrics,
+    } = proposal;
+    if (
+      !name ||
+      !coAuthors ||
+      !dateProposal ||
+      !championshipTeam ||
+      !leadershipSponsor ||
+      !summary ||
+      !motivation ||
+      !specifications ||
+      !risks ||
+      !successMetrics
+    ) {
+      toast({
+        title: "RFC requires all the fields",
+        description: "We need all the fields to be populated",
+        status: "warning",
+        duration: 9000,
+        isClosable: true,
+        position: "bottom",
+      });
+    } else {
+      setRfcFinalProposal(proposal);
+      //open the modal
+      onOpenRFCDialog();
+    }
+  };
+
+  const handleCancel = () => {
+    onOpenCancelDialog();
+  };
+
+  let LeadershipOptions: JSX.Element[] = [];
   if (leadershipSponsors) {
-    selectOptions = leadershipSponsors?.map((val) => (
+    LeadershipOptions = leadershipSponsors?.map((val) => (
       <option value={val.name} key={val.id}>
         {val.name}
       </option>
@@ -46,15 +135,48 @@ const ProposalForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmitRFC)}>
+      <AlertDialogue
+        isOpen={isOpenRFCDialog}
+        onClose={onCloseRFCDialog}
+        dialogRef={rfcRef}
+        header={"Submit Proposal to RFC"}
+        content="Are you sure you want to submit your proposal for RFC?"
+        onAccept={() => {
+          createProposal(rfcFinalProposal, {
+            onSuccess: () => router.push("/rfc"),
+          });
+          onCloseRFCDialog();
+        }}
+      />
+      <AlertDialogue
+        isOpen={isOpenCancelDialog}
+        onClose={onCloseCancelDialog}
+        dialogRef={CancellRef}
+        header={"Cancel Proposal"}
+        content="Are you sure you want to delete your proposal?"
+        onAccept={() => {
+          router.push("/"), onCloseCancelDialog();
+        }}
+      />
+
       <VStack align="stretch" spacing={6}>
         <FormControl isInvalid={!!errors.name}>
-          <FormLabel {...register("id")} ></FormLabel>
+          <FormLabel {...register("id")}></FormLabel>
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl isRequired isInvalid={!!errors.name}>
           <FormLabel>Title of BIP:</FormLabel>
-          <Input {...register("name")} autoComplete="off" />
+          <Input
+            maxLength={50}
+            {...register("name", { required: true, maxLength: 50 })}
+            autoComplete="off"
+          />
+          {errors.name ? (
+            <FormErrorMessage>This field is required</FormErrorMessage>
+          ) : (
+            <div />
+          )}
         </FormControl>
 
         <FormControl>
@@ -87,17 +209,22 @@ const ProposalForm = () => {
             placeholder="Select option"
             {...register("leadershipSponsor")}
           >
-            {selectOptions}
+            {LeadershipOptions}
           </Select>
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl isRequired isInvalid={!!errors.summary}>
           <FormLabel>Simple Summary/Abstract:</FormLabel>
           <FormHelperText>
             Provide one to two sentences that describe the proposal at a high
             level.
           </FormHelperText>
-          <Textarea minH="10rem" {...register("summary")} />
+          <Textarea minH="10rem" {...register("summary", { required: true })} />
+          {errors.summary ? (
+            <FormErrorMessage>This field is required</FormErrorMessage>
+          ) : (
+            <div />
+          )}
         </FormControl>
 
         <FormControl>
@@ -136,21 +263,29 @@ const ProposalForm = () => {
           <Textarea {...register("successMetrics")} />
         </FormControl>
 
-        <FormControl>
-          <FormLabel>Status</FormLabel>
-          <Input {...register("status")} />
-        </FormControl>
-
         <Flex gap={3}>
           <Spacer />
-          <Link href="/" passHref>
-            <Button>Cancel</Button>
-          </Link>
-          <Button colorScheme="blue" isLoading={isLoading} type="submit">
-            Save
+          <Button id="cancelButton" onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button
+            id="submitDraft"
+            onClick={handleSubmit(onSubmitDraft)}
+            colorScheme="blue"
+            isLoading={isLoading}
+          >
+            Save as Draft
           </Button>
           <Link href="#" passHref>
-            <Button colorScheme="blue">Submit for RFC</Button>
+            <Button
+              id="submitRFC"
+              colorScheme="green"
+              onClick={handleSubmit(onSubmitRFC)}
+              type="submit"
+              isLoading={isLoading}
+            >
+              Submit for RFC
+            </Button>
           </Link>
         </Flex>
       </VStack>

@@ -8,11 +8,19 @@ datasource db {
 }
 
 enum ProposalStatus {
-  IDEA
   DRAFT
-  REVIEW
+  RFC
   ACCEPTED
-  ARCHIVED
+  REJECTED
+  UNDETERMINED
+}
+
+enum RFCStatus {
+  UNPUBLISHED
+  PUBLISHED
+  VOTE
+  DECISION
+  NONE
 }
 
 model Proposal {
@@ -29,6 +37,7 @@ model Proposal {
   risks             String         @default("")
   successMetrics    String         @default("")
   status            ProposalStatus @default(DRAFT)
+  rfcStatus         RFCStatus      @default(NONE)
 }
 
 model LeadershipSponsor {
