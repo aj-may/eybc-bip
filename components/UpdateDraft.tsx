@@ -21,8 +21,6 @@ import { useUpdateDraft } from "lib/useDrafts";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 
-import moment from "moment";
-
 const UpdateDraft = (props: Proposal) => {
   const router = useRouter();
 
@@ -38,7 +36,6 @@ const UpdateDraft = (props: Proposal) => {
   const { leadershipSponsors } = useLeadershipSponsor();
 
   useEffect(() => {
-
     if (props) {
       reset({
         id: props.id,
