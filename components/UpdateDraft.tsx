@@ -50,6 +50,7 @@ const UpdateDraft = (props: Proposal) => {
         risks: props.risks,
         successMetrics: props.successMetrics,
         status: props.status,
+        rfcStatus: props.rfcStatus,
       });
     }
   }, [reset, props.name]);
@@ -182,7 +183,7 @@ const UpdateDraft = (props: Proposal) => {
             Save
           </Button>
           <Link href="#" passHref>
-            <Button colorScheme="blue">Submit for RFC</Button>
+            <Button colorScheme="green">Submit for RFC</Button>
           </Link>
         </Flex>
       </VStack>
