@@ -4,7 +4,7 @@ import Layout from "components/Layout";
 import { useDraftsById } from "lib/useDrafts";
 import UpdateDraft from "components/UpdateDraft";
 import { useRouter } from "next/router";
-import { ProposalStatus } from "@prisma/client";
+import { ProposalStatus, RFCStatus } from "@prisma/client";
 
 const Page: NextPage = (props) => {
   const badgeAddress = process.env.NEXT_PUBLIC_BADGE_ADDRESS || "";
@@ -28,6 +28,7 @@ const Page: NextPage = (props) => {
   const risks = draft?.risks as string;
   const successMetrics = draft?.successMetrics as string;
   const status = draft?.status as ProposalStatus;
+  const rfcStatus = draft?.rfcStatus as RFCStatus;
 
   return (
     <Layout>
@@ -45,6 +46,7 @@ const Page: NextPage = (props) => {
         risks={risks}
         successMetrics={successMetrics}
         status={status}
+        rfcStatus={rfcStatus}
       />
     </Layout>
   );
