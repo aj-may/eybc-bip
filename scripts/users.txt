@@ -1,0 +1,312 @@
+[
+ {
+   "name": "aj",
+   "address": "0x71a90639BD428F2C14a194ef698B12F1fa1B12e7",
+   "role": "ADMIN"
+ },
+ {
+   "name": "alex",
+   "address": "0xE79CccbD97ce8Cf1ca9073201357E8E386780f57",
+   "role": "ADMIN"
+ },
+ {
+   "name": "chen",
+   "address": "0x1dbBb16A086340706Be966886059DfAbcE5892A2",
+   "role": "MEMBER"
+ },
+ {
+   "name": "brian",
+   "address": "0xA8A45f608170e2DE96aA9B6bc4CFa893fD181B4A",
+   "role": "MEMBER"
+ },
+ {
+   "name": "patrick",
+   "address": "0xeEeA87d4Ea8d6e79184fa80A23413483F30f96fa",
+   "role": "MEMBER"
+ },
+ {
+   "name": "daniel",
+   "address": "0x02808fAe6C32cD67C812B857f8d5011a1e0E6156",
+   "role": "MEMBER"
+ },
+ {
+   "name": "graham",
+   "address": "0xB779180310637A6FEDd82Aa4B797148555e5e1Fd",
+   "role": "MEMBER"
+ },
+ {
+   "name": "james",
+   "address": "0x4c7696346A5CB4b1E9f9aB248385C461F4F0BB66",
+   "role": "MEMBER"
+ },
+ {
+   "name": "arwin",
+   "address": "0x468aeED39B8336bcd251de96b2380c044344eaC7",
+   "role": "MEMBER"
+ },
+ {
+   "name": "christopher",
+   "address": "0xe3a31cA74757596a5Efc033dE67aa0099C4B26D4",
+   "role": "MEMBER"
+ },
+ {
+   "name": "william",
+   "address": "0x3A0e4682Af170c1be0a2dFF9B130C2271A5cbbe9",
+   "role": "MEMBER"
+ },
+ {
+   "name": "gabe",
+   "address": "0x90D85d48F19F26c164f23e5BaEf92D5aCD8b666d",
+   "role": "MEMBER"
+ },
+ {
+   "name": "matt",
+   "address": "0x761Bac5a02ae9E306EE2832268C3E3Fd73DBa814",
+   "role": "MEMBER"
+ },
+ {
+   "name": "lana",
+   "address": "0x2592bdC387d035288aD5c7B8B77c27f8293446b9",
+   "role": "ADMIN"
+ },
+ {
+   "name": "Alejandro",
+   "address": "0xFD50bBC8FA5A30Fc2c4D528178835d633F21BE26",
+   "role": "MEMBER"
+ },
+ {
+   "name": "will",
+   "address": "0xA42Ca9055c8875972aDC1c7AB9F84783594f2e8B",
+   "role": "MEMBER"
+ },
+ {
+   "name": "anthony",
+   "address": "0x4Edd80557F2cc893de5397d0508efe7EcBa7B98d",
+   "role": "MEMBER"
+ },
+ {
+   "name": "meaghan",
+   "address": "0x2695B742fd4A750CE3fA8f90B4302F499F5F669C",
+   "role": "ADMIN"
+ },
+ {
+   "name": "Daniel",
+   "address": "0x7b825cBA399b8A17c78f0064a4d1c21C98724B2E",
+   "role": "MEMBER"
+ },
+ {
+   "name": "alyssa",
+   "address": "0x11D15C3DC69018B6e03c061B93bB9295eEc50De2",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Damian",
+   "address": "0x78510E9Cfa09c78Da17Dc0A078DB3a016b64c08e",
+   "role": "MEMBER"
+ },
+ {
+   "name": "akhil",
+   "address": "0x10caA4671393DdEa27ACCE5a76D0B303C377cCc4",
+   "role": "MEMBER"
+ },
+ {
+   "name": "crystal",
+   "address": "0x49Dc332811d00c9ADF65001DeEBd375a2c567444",
+   "role": "MEMBER"
+ },
+ {
+   "name": "emmanuel",
+   "address": "0x8F51Bf2611717dc7717d8797C96Dd42F7dD565F3",
+   "role": "MEMBER"
+ },
+ {
+   "name": "yaakov",
+   "address": "0x3ddA586A7e9c10b4A66EDc97314404C916532936",
+   "role": "MEMBER"
+ },
+ {
+   "name": "nikhil",
+   "address": "0x390AEd628A17fFE905DA9cc19332892c0229a4ED",
+   "role": "MEMBER"
+ },
+ {
+   "name": "max",
+   "address": "0x2C5257DD5C1C40C0Fa929D193bf883953f5DF587",
+   "role": "MEMBER"
+ },
+ {
+   "name": "mark",
+   "address": "0x83fEDC8347dbB77ebfB519F7C2497e85B7ADb56A",
+   "role": "MEMBER"
+ },
+ {
+   "name": "zach",
+   "address": "0x4BE204B3db8952c297645c0206d87b90b849da1f",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Kinjal",
+   "address": "0x8D74d9281Da4F2D2884Ec6662fF183b5F4566b10",
+   "role": "MEMBER"
+ },
+ {
+   "name": "rajat",
+   "address": "0xa34396AECd4eDE65E819331f51967e351ffd7C8b",
+   "role": "MEMBER"
+ },
+ {
+   "name": "kacey",
+   "address": "0xEe23051a497dfd451e529B689103Fa5d36BF02e5",
+   "role": "ADMIN"
+ },
+ {
+   "name": "sofia",
+   "address": "0x25CF6dfb27d83cdaE92E4CBc9212CD1B6Ed80b30",
+   "role": "ADMIN"
+ },
+ {
+   "name": "adil",
+   "address": "0x4eD0efA3a0Cc7d0e87DbA962c3ACB05811C855f1",
+   "role": "MEMBER"
+ },
+ {
+   "name": "mohammed",
+   "address": "0xf42BB9C241EE15B261c4b67e1dd1f7065Ae26736",
+   "role": "ADMIN"
+ },
+ {
+   "name": "harshika",
+   "address": "0xa2b914d2D6CD76dE78B786Da667b343C996B0dC4",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Taurean",
+   "address": "0xF907015289dBae5cdd1F2F918DA7d15E544F2912",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Steven",
+   "address": "0xdeafE13A0AED2Ef2C88631Fa8416b0C1371D6ca2",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Jj",
+   "address": "0x50Bf717B769fb9fF624e9360CD36f8Cd89e98E42",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Stacy",
+   "address": "0xF94857AA36703718Ee36BdAF266769D0c5074C1a",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Vishal",
+   "address": "0x86D7abc45061d04E1e3fE258FaBAEF14aD9607a1",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Elias",
+   "address": "0x101e722b3BCaEB330Bc96A97DA8a6Ab7f3820781",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Jeff",
+   "address": "0x014F4f2f4A39279FA67389607F007f914a582710",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Dale",
+   "address": "0x3C3Df2e2954c1f7ED94449DBDAB2C25DDa52970d",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Yaniv",
+   "address": "0x36bFc1745116F3316880ed9cE745Deba4c246F17",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Andrew",
+   "address": "0xFd9AA980d17A07e95F6230861a1E29b357879143",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Per",
+   "address": "0xd549Fec029875EbbE4b34D14501D033821f13e8b",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Tulika",
+   "address": "0x16bf36C61bE69162a5C3cf3A5571Ada5F303a366",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Olivia",
+   "address": "0x668D26ac5a5fA349b152F1b3809761C37FAb3117",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Aaron",
+   "address": "0xB381620878F62e6Fc59866Fc6AeE6404888bF363",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Charles",
+   "address": "0x0d7F3A7337F205278CebB8334c9F61Edb5a41419",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Tom",
+   "address": "0x21DFCFd66fE2759621E89beB0C4bF2dA8a9a0aBc",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Paul",
+   "address": "0x670CC9efF677c511F4f4A65C115C1e46C3B78570",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Saransh",
+   "address": "0xB14CEd941E4D5D06B92618DD28d9295C12729C3d",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Jonathan",
+   "address": "0xD828Cce4BD34da2f7336949cF898f5E82159A24e",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Henry",
+   "address": "0x779f72354fcDd1630ccE50A6348cd037385BF5Ca",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Benjamin",
+   "address": "0xA826994776b9ceB570f06478647763369876a4F0",
+   "role": "MEMBER"
+ },
+ {
+   "name": "William",
+   "address": "0x5F7dAaBAcAF3C1B9c5758408389CE700080990df",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Sreepriya",
+   "address": "0xa818840B439a77CC788f5d15bAF3A163Ad237622",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Tyler",
+   "address": "0xC98B44859436f31C57cf26B152d9b72145212836",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Curtis",
+   "address": "0xc3689E474Ab945BF60412eAEe23a5f7Ee7218c7C",
+   "role": "MEMBER"
+ },
+ {
+   "name": "Benjamin",
+   "address": "0x4b88eCe66d15357BA9134769C31183344789baF7",
+   "role": "MEMBER"
+ }
+]

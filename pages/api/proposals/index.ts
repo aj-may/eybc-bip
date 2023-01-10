@@ -43,8 +43,8 @@ export default withAuth(async (req, res, session) => {
       const proposal = await prisma.proposal.create({
         data: {
           name,
-          author: session.address as string,
           coAuthors,
+          author: session.address as string,
           dateProposal: dateOfProposal,
           championshipTeam,
           leadershipSponsor,

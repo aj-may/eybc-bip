@@ -15,30 +15,8 @@ import {
 } from "@chakra-ui/react";
 
 import { EditIcon } from "@chakra-ui/icons";
-
 import { Proposal } from "@prisma/client";
-
-const ProposalDetails = (props: {
-  detailName: String;
-  detailValue: String;
-}) => {
-  return (
-    <Box
-      display="flex"
-      alignItems="flex-start"
-      justifyContent="space-between"
-      textAlign="left"
-      p={2}
-    >
-      <Heading flex="1" size="xs">
-        {props.detailName}
-      </Heading>
-      <Text flex="2" fontSize="xs">
-        {props.detailValue.toString()}
-      </Text>
-    </Box>
-  );
-};
+import ProposalDetails from "./ProposalDetails";
 
 const ProposalRow = (props: Proposal) => {
   const [isShown, setIsShown] = useState(false);
@@ -62,6 +40,7 @@ const ProposalRow = (props: Proposal) => {
     });
   };
 
+//TODO: Fix listing of array elements in line 99 after prisma.schema update
   return (
     <Box p="20px">
       <Accordion allowToggle>
@@ -71,7 +50,7 @@ const ProposalRow = (props: Proposal) => {
             <AccordionButton _expanded={{ bg: "#DDEAF7" }}>
               <Box flex="1" textAlign="left">
                 <Heading size="md">{props.name}</Heading>
-                <Text fontSize="xs">by {props.author}</Text>
+                <Text fontSize="xs">by {props.coAuthors}</Text>
                 <Text>{props.summary}</Text>
               </Box>
               <AccordionIcon />
@@ -95,7 +74,7 @@ const ProposalRow = (props: Proposal) => {
               <ProposalDetails
                 key={i}
                 detailName={each.name}
-                detailValue={each.value}
+                detailValue={"string"}
               />
             ))}
           </AccordionPanel>
