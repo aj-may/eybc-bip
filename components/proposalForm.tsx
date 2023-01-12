@@ -25,6 +25,7 @@ import AlertDialogue from "./AlertDialogue";
 const ProposalForm = () => {
   const initProposal: Proposal = {
     name: "",
+    author: "",
     coAuthors: "",
     dateProposal: new Date(),
     championshipTeam: "",
@@ -35,7 +36,6 @@ const ProposalForm = () => {
     risks: "",
     successMetrics: "",
     id: "",
-    author: "",
     status: ProposalStatus.DRAFT,
     rfcStatus: RFCStatus.NONE,
   };

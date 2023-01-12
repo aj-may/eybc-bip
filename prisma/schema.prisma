@@ -2,6 +2,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "bipSchemaERD.png"
+  theme    = "forest"
+}
+
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
@@ -23,6 +29,19 @@ enum RFCStatus {
   NONE
 }
 
+enum Role {
+  ADMIN
+  MEMBER
+  VIEW
+}
+
+enum Choice {
+  UNDECIDED
+  YAY
+  NAY
+  ABSTAIN
+}
+
 model Proposal {
   id                String         @id @default(auto()) @map("_id") @db.ObjectId
   name              String
@@ -38,9 +57,64 @@ model Proposal {
   successMetrics    String         @default("")
   status            ProposalStatus @default(DRAFT)
   rfcStatus         RFCStatus      @default(NONE)
+  poll              Poll?
+  comments          Comment[]
 }
 
 model LeadershipSponsor {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
+}
+
+model User {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  address   String     @unique
+  name      String
+  role      Role       @default(VIEW)
+  votes     Vote[]
+  comments  Comment[]
+  upvotes   Upvote[]
+  downvotes Downvote[]
+}
+
+model Poll {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  proposalId String   @unique @db.ObjectId
+  proposal   Proposal @relation(fields: [proposalId], references: [id])
+  votes      Vote[]
+}
+
+model Vote {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  pollId  String? @db.ObjectId
+  poll    Poll?   @relation(fields: [pollId], references: [id])
+  voterId String  @db.ObjectId
+  voter   User    @relation(fields: [voterId], references: [id])
+  choice  Choice  @default(UNDECIDED)
+}
+
+model Comment {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  commenterId String     @db.ObjectId
+  commenter   User       @relation(fields: [commenterId], references: [id])
+  upvotes     Upvote[]
+  downvotes   Downvote[]
+  proposalId  String?    @db.ObjectId
+  proposal    Proposal?  @relation(fields: [proposalId], references: [id])
+}
+
+model Upvote {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  upvoterId String?  @db.ObjectId
+  upvoter   User?    @relation(fields: [upvoterId], references: [id])
+  commentId String?  @db.ObjectId
+  comment   Comment? @relation(fields: [commentId], references: [id])
+}
+
+model Downvote {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  downvoterId String?  @db.ObjectId
+  downvoter   User?    @relation(fields: [downvoterId], references: [id])
+  commentId   String?  @db.ObjectId
+  comment     Comment? @relation(fields: [commentId], references: [id])
 }
